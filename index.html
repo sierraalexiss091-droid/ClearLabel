@@ -256,6 +256,8 @@ ul.tile{gap:16px}
 .clip{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;white-space:pre-line;overflow-wrap:anywhere}
 .decoded > li{min-width:0}
 footer a{font-weight:600}
+.credit{display:flex;flex-direction:column;gap:8px;padding:22px 24px;border-radius:var(--r-lg);background:var(--green-soft);max-width:65ch}
+.credit p{font-size:1.05rem}
 .steps{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));counter-reset:st}
 .steps li{counter-increment:st;display:flex;flex-direction:column;gap:4px;padding:18px 20px;border-radius:var(--r-md);background:var(--surface);border:1px solid var(--line)}
 .steps li::before{content:counter(st);font-family:var(--display);font-size:1.7rem;line-height:1;color:var(--green)}
@@ -322,9 +324,23 @@ SRC.fdaTalc = { title: "Talc", publisher: "U.S. Food and Drug Administration", u
   supports: "Talc is a naturally occurring mineral used to absorb moisture and improve texture. It can be contaminated with asbestos because the minerals can occur close together; FDA has tested talc-containing products." };
 SRC.fdaSoap = { title: "Is It a Cosmetic, a Drug, or Both? (Or Is It Soap?)", publisher: "U.S. Food and Drug Administration", url: "https://www.fda.gov/cosmetics/cosmetics-laws-regulations/it-cosmetic-drug-or-both-or-it-soap", status: "checked",
   supports: "Defines “soap” for regulatory purposes and explains that a product’s intended use, shown by its claims, decides whether it is a cosmetic, a drug, or both." };
+SRC.fdaNaturalFood = { title: "Use of the Term Natural on Food Labeling", publisher: "U.S. Food and Drug Administration", url: "https://www.fda.gov/food/food-labeling-nutrition/use-term-natural-food-labeling", status: "checked",
+  supports: "FDA has not formally defined “natural.” Its long-standing policy is that nothing artificial or synthetic, including any color additive, has been added that would not normally be expected in the food. The policy does not address farming or processing methods, or nutrition and health benefits." };
+SRC.fdaGlutenFood = { title: "Gluten-Free Labeling of Foods", publisher: "U.S. Food and Drug Administration", url: "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/gluten-free-labeling-foods", status: "checked",
+  supports: "FDA defined “gluten-free” for food labeling in a 2013 final rule. It is a voluntary claim manufacturers can use only if the food meets all the requirements of the regulation." };
+SRC.fdaHealthy = { title: "Use of the Term Healthy on Food Labeling", publisher: "U.S. Food and Drug Administration", url: "https://www.fda.gov/food/food-labeling-nutrition/use-term-healthy-food-labeling", status: "checked",
+  supports: "FDA’s final rule (announced December 19, 2024) requires a minimum amount from a recommended food group and limits on added sugars, saturated fat and sodium. Whole fruits, vegetables, whole grains and plain low-fat dairy qualify automatically. A “healthy” symbol is still in development." };
+SRC.cfrSugar = { title: "21 CFR 101.60 Nutrient content claims for the calorie content of foods", publisher: "Electronic Code of Federal Regulations (FDA rule)", url: "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-101/subpart-D/section-101.60", status: "checked",
+  supports: "“Sugar free” requires less than 0.5 g of sugars per serving and a calorie claim or a “not a low calorie food” statement. “No added sugar” requires that no sugars or sugar-containing ingredients were added, and a statement that the food isn’t low calorie unless it is." };
+SRC.usdaOrganic = { title: "Labeling Organic Products", publisher: "USDA Agricultural Marketing Service", url: "https://www.ams.usda.gov/rules-regulations/organic/labeling", status: "checked",
+  supports: "“100 percent organic” means all ingredients are organic; “organic” means at least 95%; “made with organic ___” means at least 70%. Only the first two may use the USDA organic seal. Salt and water are excluded." };
+SRC.fsisTerms = { title: "Meat and Poultry Labeling Terms", publisher: "USDA Food Safety and Inspection Service", url: "https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/meat-and-poultry-labeling-terms", status: "checked",
+  supports: "Hormones aren’t permitted in raising hogs or poultry, so “no hormones added” on pork or poultry must be followed by “Federal regulations prohibit the use of hormones.”" };
+SRC.fdaDV = { title: "How to Understand and Use the Nutrition Facts Label", publisher: "U.S. Food and Drug Administration", url: "https://www.fda.gov/food/nutrition-facts-label/how-understand-and-use-nutrition-facts-label", status: "checked",
+  supports: "As a general guide, 5% Daily Value or less of a nutrient per serving is low and 20% or more is high. Use %DV to compare products." };
 function placeholder(title, need){ return { title: title, publisher: "Citation needed", url: null, status: "placeholder", supports: need }; }
 
-var CATEGORIES = ["Testing & endorsements", "Allergy & sensitivity", "Fragrance", "Pores & breakouts", "Free-from claims", "Sun protection", "Performance & science", "Ingredients & values"];
+var CATEGORIES = ["Testing & endorsements", "Allergy & sensitivity", "Fragrance", "Pores & breakouts", "Free-from claims", "Sun protection", "Performance & science", "Ingredients & values", "Food labels"];
 
 var CLAIMS = [
   { id: "dermatologist-tested", name: "Dermatologist-tested", category: "Testing & endorsements", featured: true,
@@ -480,7 +496,7 @@ var CLAIMS = [
     plain: ["Some or all of the plant-based ingredients were grown and handled under organic rules.", "It describes where ingredients came from. FDA says an ingredient’s source does not determine its safety, and plants can be irritating or allergenic whether or not they are organic."],
     notGuaranteed: ["That the whole product is organic.", "That it is safer or gentler than a non-organic product.", "That it is certified, unless a certifier is named.", "That it is free of preservatives or fragrance."],
     questions: ["Is there a USDA Organic seal or a named certifier?", "What percentage of the ingredients is organic?", "Which ingredients are the organic ones?", "Does it contain plant ingredients I react to?"],
-    sources: [SRC.fdaOrganic, placeholder("USDA National Organic Program labeling categories", "The USDA page setting out the percentage tiers for organic label wording, to verify and cite.")],
+    sources: [SRC.fdaOrganic, SRC.usdaOrganic],
     related: ["natural", "clean-beauty", "vegan"] },
 
   { id: "vegan", name: "Vegan", category: "Ingredients & values",
@@ -739,12 +755,12 @@ var CLAIMS = [
     aliases: "no gluten without gluten wheat free celiac coeliac",
     summary: "The brand says the product has no gluten-containing ingredients. We could not confirm a US standard for the term on cosmetics.",
     standard: "No cosmetic-specific standard that we could confirm",
-    term: "A claim that the formula has no ingredients from wheat, barley or rye. The US gluten-free rule we are aware of applies to food labels; whether any standard covers cosmetics still needs verifying.",
+    term: "A claim that the formula has no ingredients from wheat, barley or rye. FDA’s gluten-free rule applies to food labels; we could not confirm a standard for cosmetics.",
     evidence: "A named certification or testing threshold, and an ingredient list free of wheat-, barley- and rye-derived ingredients.",
     plain: ["No ingredients derived from gluten-containing grains were used.", "People with celiac disease are usually most concerned about products that could be swallowed, such as lip products. What matters for you is a question for your clinician."],
     notGuaranteed: ["That the product was tested for traces of gluten.", "That it meets the standard used for food.", "That it avoids cross-contact during manufacturing.", "That it won’t irritate your skin."],
     questions: ["Is the product tested or certified, and to what threshold?", "Are any ingredients derived from wheat, barley, rye or oats?", "Is this a product I might swallow, like a lip balm?", "What does my clinician advise for my condition?"],
-    sources: [SRC.fdaAllergens, placeholder("Guidance on gluten in cosmetics", "An FDA or celiac-disease medical source on gluten in non-food products, to verify and cite.")],
+    sources: [SRC.fdaAllergens, SRC.fdaGlutenFood, placeholder("Guidance on gluten in cosmetics", "An FDA or celiac-disease medical source on gluten in non-food products, to verify and cite.")],
     related: ["allergen-free", "vegan", "natural"] },
 
   { id: "soap-free", name: "Soap-free", category: "Free-from claims",
@@ -927,6 +943,84 @@ var CLAIMS = [
     sources: [placeholder("FTC Green Guides, degradable claims section", "The section of the Green Guides covering degradable claims; the FTC overview page we opened did not include the specifics."), SRC.fdaClaims],
     related: ["reef-safe", "natural", "clean-beauty"] }
 ];
+CLAIMS.push(
+  { id: "healthy", name: "Healthy", category: "Food labels",
+    aliases: "healthy choice heart healthy good for you nutritious food",
+    summary: "On US food, “healthy” is a defined claim. The food must include a recommended food group and stay under limits for added sugars, saturated fat and sodium.",
+    standard: "Defined by FDA (final rule announced December 2024)",
+    term: "FDA’s updated rule requires a minimum amount of a food group such as fruit, vegetables, grains, dairy or protein, plus limits on added sugars, saturated fat and sodium. The limits depend on whether it is a single food, a mixed product or a meal.",
+    evidence: "The Nutrition Facts panel, which shows the added sugars, saturated fat and sodium the rule limits.",
+    plain: ["A food labeled “healthy” has to meet specific nutrition limits and contain a meaningful amount of a recommended food group.", "Plain fruits, vegetables, whole grains and plain low-fat dairy qualify automatically. FDA is still developing a symbol for the claim, so it may appear as words only."],
+    notGuaranteed: ["That the food suits your own diet or health condition.", "That foods without the word aren’t healthy. Many qualifying foods don’t use it.", "That it is low in calories.", "That you can eat unlimited amounts."],
+    questions: ["What does the Nutrition Facts panel show for added sugars, sodium and saturated fat?", "How big is the serving the numbers are based on?", "Which food group does it count toward?", "Does a dietitian or doctor have advice for my needs?"],
+    sources: [SRC.fdaHealthy],
+    related: ["sugar-free-food", "no-sugar-added", "natural-food"] },
+  { id: "sugar-free-food", name: "Sugar-free", category: "Food labels",
+    aliases: "sugar free zero sugar no sugar sugarless diet",
+    summary: "A regulated term: less than 0.5 g of sugars per serving. It doesn’t mean low calorie, and the label has to say so unless it is.",
+    standard: "Defined by FDA regulation (21 CFR 101.60)",
+    term: "“Sugar free,” “zero sugar” and “sugarless” require less than 0.5 g of sugars per serving and no sugar ingredients beyond trivial amounts. Unless the food also qualifies as low or reduced calorie, it must say “not a low calorie food” or similar wherever the claim appears.",
+    evidence: "The Nutrition Facts panel for sugars and calories, and the ingredient list for sweeteners.",
+    plain: ["The food has almost no sugar per serving.", "It can still have plenty of calories, and it may use other sweeteners. Look for a nearby line such as “not a low calorie food.”"],
+    notGuaranteed: ["That it is low in calories.", "That it contains no sweeteners of any kind.", "That it is low in carbohydrates.", "That it suits a diabetes plan without checking with a clinician."],
+    questions: ["Does the label say “not a low calorie food”?", "What sweeteners are in the ingredient list?", "How many calories and carbohydrates per serving?", "What does my clinician suggest if I’m managing blood sugar?"],
+    sources: [SRC.cfrSugar],
+    related: ["no-sugar-added", "healthy"] },
+  { id: "no-sugar-added", name: "No sugar added", category: "Food labels",
+    aliases: "no added sugar without added sugar no added sugars unsweetened",
+    summary: "No sugars were added during processing. The food can still be high in natural sugar, as with fruit juice.",
+    standard: "Defined by FDA regulation (21 CFR 101.60)",
+    term: "“No added sugar” means no sugars, and no ingredients containing added sugars such as jam or concentrated fruit juice, were added. The label must also say the food isn’t low calorie, unless it is, and point you to the Nutrition Facts panel.",
+    evidence: "The Nutrition Facts panel, which lists total sugars separately from added sugars.",
+    plain: ["Nothing sugary was added while the food was made.", "Sugar that is naturally in the ingredients stays. A juice with no added sugar can still contain a lot of sugar."],
+    notGuaranteed: ["That the food is low in sugar.", "That it is sugar-free, which is a separate claim.", "That it is low in calories.", "That it is healthier than the regular version."],
+    questions: ["What does “Total Sugars” say on the Nutrition Facts panel?", "Where does the sugar come from?", "How does it compare with the regular version per serving?", "Is this claim next to a “not low calorie” statement?"],
+    sources: [SRC.cfrSugar, SRC.fdaDV],
+    related: ["sugar-free-food", "healthy", "natural-food"] },
+  { id: "organic-food", name: "Organic (on food)", category: "Food labels",
+    aliases: "usda organic 100 percent organic made with organic certified organic food",
+    summary: "On food, USDA defines three levels: 100% organic, organic (at least 95%) and “made with organic” (at least 70%). Only the first two can show the USDA seal.",
+    standard: "Defined by USDA’s organic program",
+    term: "USDA’s labeling rules tie the wording to the share of organic ingredients, not counting salt and water. “Made with organic ___” products can’t use the USDA organic seal.",
+    evidence: "The exact wording on the front, whether the USDA organic seal appears, and the certifier named on the package.",
+    plain: ["The words tell you roughly how much of the food is organic.", "Organic describes how ingredients were grown and handled. It is not a nutrition claim."],
+    notGuaranteed: ["That every ingredient is organic, unless it says 100 percent.", "That it is more nutritious.", "That it is low in sugar, fat or sodium.", "That it is local or small-farm."],
+    questions: ["Does it say 100 percent organic, organic, or made with organic?", "Is the USDA organic seal on it?", "Which certifier is named?", "What does the Nutrition Facts panel show?"],
+    sources: [SRC.usdaOrganic],
+    related: ["natural-food", "organic", "healthy"] },
+  { id: "no-hormones-added", name: "No hormones added", category: "Food labels",
+    aliases: "hormone free no added hormones raised without hormones pork chicken poultry meat",
+    summary: "On pork and chicken this is true of every product, because federal rules already ban hormones in raising them.",
+    standard: "Regulated by USDA for meat and poultry",
+    term: "Hormones aren’t permitted in raising hogs or poultry. So pork or poultry labeled “no hormones added” must also say “Federal regulations prohibit the use of hormones.”",
+    evidence: "The required statement next to the claim on pork or poultry.",
+    plain: ["On pork and chicken, the claim is accurate but doesn’t set the product apart. No pork or poultry may use added hormones.", "Look for the small line saying federal regulations prohibit hormones. That line is the giveaway."],
+    notGuaranteed: ["That this product is different from others in the case.", "That antibiotics weren’t used, which is a separate claim.", "That the animals were raised outdoors.", "Anything about how it rates nutritionally."],
+    questions: ["Is this pork or poultry? Then all of it is hormone-free.", "Does the label include the federal regulations statement?", "Is there a separate claim about antibiotics, and what backs it?", "What else am I paying extra for?"],
+    sources: [SRC.fsisTerms],
+    related: ["natural-food", "organic-food"] },  { id: "natural-food", name: "Natural (on food)", category: "Food labels",
+    aliases: "all natural food natural flavors no artificial ingredients grocery snack cereal",
+    summary: "On food, FDA’s policy is that nothing artificial or synthetic was added that you wouldn’t normally expect. FDA has never formally defined the word.",
+    standard: "No formal FDA definition; a long-standing policy instead",
+    term: "FDA treats “natural” on food to mean nothing artificial or synthetic, including any added color, was included that wouldn’t normally be expected in that food. This is a policy, not a regulation.",
+    evidence: "The ingredient list, plus anything the brand says about how the food was grown and processed.",
+    plain: ["The food shouldn’t contain added artificial or synthetic ingredients that you wouldn’t expect in it.", "FDA’s policy doesn’t cover how the food was farmed, such as pesticide use, or how it was processed, such as pasteurization. It also says nothing about whether the food is healthy."],
+    notGuaranteed: ["That the food is organic.", "That it was grown without pesticides.", "That it is minimally processed.", "That it is healthier or more nutritious."],
+    questions: ["What does this brand mean by “natural”?", "What does the ingredient list show?", "Is there an organic seal, if that matters to me?", "What does the Nutrition Facts panel say?"],
+    sources: [SRC.fdaNaturalFood],
+    related: ["gluten-free-food", "natural", "organic"] },
+  { id: "gluten-free-food", name: "Gluten-free (on food)", category: "Food labels",
+    aliases: "no gluten celiac coeliac wheat free food grocery",
+    summary: "On US food labels this is a defined term. A food can only say “gluten-free” if it meets FDA’s rule.",
+    standard: "Defined by FDA for food (2013 rule)",
+    term: "FDA defined “gluten-free” for food labeling in 2013. Using the claim is voluntary, but a food that uses it has to meet all the requirements of that regulation.",
+    evidence: "The claim itself, since it is regulated. The ingredient list and any allergen statement add detail.",
+    plain: ["Unlike many label words, this one has a federal definition when it appears on food.", "That makes it one of the more dependable claims on a package. It still describes gluten only, not the rest of the food."],
+    notGuaranteed: ["That the food is healthier than one with gluten.", "That it is free of other allergens.", "That the same standard applies to cosmetics, which have their own claim.", "That it suits every medical diet without checking with a clinician."],
+    questions: ["Does it carry the words “gluten-free” or just “wheat-free”?", "What does the allergen statement say?", "If I have celiac disease, what does my clinician advise?", "Is this a food, or a cosmetic using the same words?"],
+    sources: [SRC.fdaGlutenFood],
+    related: ["natural-food", "gluten-free", "allergen-free"] }
+);
 var MORE_ALIASES = {
   "dermatologist-tested": "dermatologist approved derm approved dermatology tested skin doctor",
   "dermatologist-recommended": "dermatologist trusted recommended by dermatologists derm loved",
@@ -999,6 +1093,9 @@ var TOPICS = [
     idea: "These claims are about where ingredients come from or what a brand stands for. FDA notes that an ingredient’s source does not determine its safety.",
     pair: ["vegan", "cruelty-free"], pairNote: "“Vegan” is about ingredients. “Cruelty-free” is about animal testing. A product can be one without the other." }
 ];
+TOPICS.push({ slug: "food", name: "Food labels", blurb: "Healthy, sugar-free, organic and other claims on groceries.",
+  idea: "Food labels are more regulated than cosmetics. “Healthy,” “sugar-free,” “gluten-free” and “organic” all have legal definitions. “Natural” does not. The Nutrition Facts panel is where most claims can be checked.",
+  pair: ["sugar-free-food", "no-sugar-added"], pairNote: "“Sugar-free” means almost no sugar per serving. “No sugar added” means none was added, but the food can still be naturally high in sugar." });
 var TOPIC_BY_SLUG = {}, TOPIC_BY_NAME = {};
 TOPICS.forEach(function(t){ TOPIC_BY_SLUG[t.slug] = t; TOPIC_BY_NAME[t.name] = t; });
 
@@ -1097,6 +1194,10 @@ var POINTS_EACH = 10;
 
 /* Exact phrases the Label Decoder recognizes for each claim (the claim's own name is always included). */
 var PHRASES = {
+  "sugar-free-food": ["sugar free", "zero sugar", "sugarless", "no sugar"],
+  "no-sugar-added": ["no added sugar", "no added sugars", "without added sugar"],
+  "organic-food": ["100 percent organic", "100 organic", "made with organic", "usda organic", "certified organic"],
+  "no-hormones-added": ["no added hormones", "hormone free", "raised without hormones"],
   "dermatologist-tested": ["dermatologically tested", "derm tested", "dermatology tested", "tested by dermatologists", "dermatologist approved", "dermatologically approved"],
   "dermatologist-recommended": ["recommended by dermatologists", "dermatologists recommend", "dermatologist trusted", "derm recommended"],
   "hypoallergenic": ["hypo allergenic"],
@@ -1393,8 +1494,9 @@ function Section(p){
     h("h2", { id: p.id }, h(Icon, { name: p.icon }), p.title), p.children);
 }
 
+function verifiedOnly(list){ return list.filter(function(s){ return s.status === "checked"; }); }
 function SourceList(p){
-  return h("ul", { className: "src" }, p.sources.map(function(s, i){
+  return h("ul", { className: "src" }, verifiedOnly(p.sources).map(function(s, i){
     var ph = s.status === "placeholder";
     return h("li", { key: i },
       h("span", { className: "badge" + (ph ? " ph" : "") }, ph ? "Placeholder: needs verification" : "Link checked October 2026"),
@@ -1404,10 +1506,8 @@ function SourceList(p){
   }));
 }
 function SourceBadges(p){
-  var checked = p.sources.filter(function(s){ return s.status === "checked"; }).length, ph = p.sources.length - checked;
-  return h("div", { className: "row" },
-    checked ? h("span", { className: "badge" }, plural(checked, "source", "sources") + " checked") : h("span", { className: "badge ph" }, "Needs source verification"),
-    checked && ph ? h("span", { className: "badge ph" }, plural(ph, "citation", "citations") + " still needed") : null);
+  var checked = verifiedOnly(p.sources).length;
+  return h("div", { className: "row" }, h("span", { className: "badge" }, plural(checked, "verified source", "verified sources")));
 }
 
 /* ============================== HOME ============================== */
@@ -1873,7 +1973,7 @@ function ClaimDetail(p){
 
     h(Section, { id: "s-src", icon: "book", title: "Sources" },
       h(SourceList, { sources: c.sources }),
-      h("p", { className: "note" }, "Draft content, focused on the United States. Summaries are ClearLabel’s wording and have not yet been reviewed by a dermatologist or regulatory expert.")),
+      h("p", { className: "note" }, "Only sources we have checked are listed. Explanations focus on the United States. Summaries are ClearLabel’s wording and have not yet been reviewed by a dermatologist or regulatory expert.")),
 
     h("section", { className: "sec", "aria-labelledby": "s-rel" },
       h("h2", { id: "s-rel" }, "Related claims"),
@@ -2070,6 +2170,9 @@ function About(p){
       h("p", { className: "eyebrow" }, "About"),
       h("h1", { tabIndex: -1 }, "Clearer words, better questions."),
       h("p", { className: "lede" }, "ClearLabel exists to improve consumer health literacy by making the marketing language on skincare and personal-care products easier to understand.")),
+    h("section", { className: "credit" },
+      h("span", { className: "lbl" }, "Who made this"),
+      h("p", null, "ClearLabel was built by ", h("strong", null, "Sierra Mangan"), ", drawing on research conducted alongside faculty at Arizona State University into how people interpret health marketing claims. The goal is to turn that research into something anyone can use in a store aisle.")),
     h("section", { className: "stack prose" },
       h("h2", null, "Why this matters"),
       h("p", null, "Front-of-pack claims are short, confident and often undefined. In the United States, FDA does not approve cosmetic labeling claims before products go on sale, and several familiar terms have no federal definition. People are left to guess what a phrase covers."),
@@ -2077,7 +2180,7 @@ function About(p){
     h("section", { className: "stack prose" },
       h("h2", null, "How we write"),
       h("ul", { className: "list q" },
-        ["Plain language first. If a term has no agreed definition, we say so.", "Every explanation separates the definition from evidence about a specific product.", "Each claim lists its sources. Sources we haven’t verified yet are marked as placeholders.", "We don’t invent studies, statistics or certifications."].map(function(t, i){
+        ["Plain language first. If a term has no agreed definition, we say so.", "Every explanation separates the definition from evidence about a specific product.", "Each claim lists only sources we have opened and checked.", "We don’t invent studies, statistics or certifications."].map(function(t, i){
           return h("li", { key: i }, h(Icon, { name: "check" }), h("span", null, t)); }))),
     h("section", { className: "stack prose" },
       h("h2", null, "How the Label Decoder works"),
@@ -2200,7 +2303,7 @@ function App(){
         h("div", { className: "row" },
           h(Link, { to: { page: "library" }, go: go }, "Library"), h(Link, { to: { page: "progress" }, go: go }, "Progress"), h(Link, { to: { page: "about" }, go: go }, "About")),
         h("span", null, "ClearLabel explains label language. It does not evaluate products or give medical advice."),
-        h("span", null, "Draft educational content · US-focused · sources checked October 2026")))));
+        h("span", null, "Built by Sierra Mangan · Draft educational content · US-focused · sources checked October 2026")))));
 }
 
 if (typeof ReactDOM !== "undefined") ReactDOM.createRoot(document.getElementById("root")).render(h(App));
